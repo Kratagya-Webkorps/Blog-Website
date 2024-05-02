@@ -94,13 +94,12 @@ const createCard = (name, title, body, tags, likes, key) => {
                 commentContent.removeChild(commentContent.firstChild);
             }
             parsedData.users[key].comment.forEach(comment => {
-                if (comment.length > 0) {
-                    console.log("hello", comment[0].viewerName);
+                
+                    console.log("hello", comment.viewerName);
                     let singleComment = document.createElement("div");
                     singleComment.id = "oldComments";
-                    singleComment.innerHTML = `Name:- ${comment[0].viewerName} and Comment:- ${comment[0].comments}`;
+                    singleComment.innerHTML = `Name:- ${comment.viewerName} and Comment:- ${comment.comments}`;
                     commentContent.appendChild(singleComment);
-                }
             });
 
         });
@@ -121,7 +120,6 @@ const createCard = (name, title, body, tags, likes, key) => {
         let commentsDiv = document.createElement("div")
         let commentHeading = document.createElement("h2")
         commentHeading.innerHTML = "Comments"
-//check
         let commentContent = document.createElement("div")
         commentContent.id = "commentContent"
 
