@@ -11,6 +11,7 @@ let confirmSignin = document.getElementById("confirmSignin")
 let clearLocalData = document.getElementById("clearLocalData")
 clearLocalData.addEventListener("click", function () {
     localStorage.clear()
+    location.reload();
 })
 
 
