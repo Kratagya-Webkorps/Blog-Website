@@ -94,7 +94,7 @@ const createCard = (name, title, body, tags, likes, key) => {
                 commentContent.removeChild(commentContent.firstChild);
             }
             parsedData.users[key].comment.forEach(comment => {
-                if (Array.isArray(comment) && comment.length > 0) {
+                if (comment.length > 0) {
                     console.log("hello", comment[0].viewerName);
                     let singleComment = document.createElement("div");
                     singleComment.id = "oldComments";
