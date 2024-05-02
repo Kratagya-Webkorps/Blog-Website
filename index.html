@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Post Website</title>
     <link rel="stylesheet" href="index.css">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
@@ -21,15 +22,45 @@
                     <label for="exampleInputEmail1" class="form-label">Email address</label>
                     <input type="email" style="width: 40%;" class="form-control" id="exampleInputEmail1"
                         aria-describedby="emailHelp">
-                    
+
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Password</label>
                     <input type="password" style="width: 40%;" class="form-control" id="exampleInputPassword1">
                 </div>
-                <button id="submitLoginPage" type="button" class="btn btn-primary">Submit</button>
+                <button id="submitLoginPage" type="button" class="btn btn-primary">Login</button>
+                <button id="signinPage" type="button" class="btn btn-success">Signin</button>
+                <button id="clearLocalData" type="button" class="btn btn-danger">Clear Local Data</button>
+
             </form>
         </div>
+        <div id="signinPageBlock" style=" display : none ;">
+            <div class="container card " style="width: 18rem;">
+                <h4>Signin Now</h4>
+
+                <form id="signinDetails">
+                    <div class="form-group">
+                        <label for="newUserEmailId">Email ID</label>
+                        <input type="email" class="form-control" id="newUserEmailId" aria-describedby="emailHelp"
+                            placeholder="Enter email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" id="newUserName" placeholder="Enter your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newUserPassword1" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="newUserPassword1" placeholder="Enter password"
+                            required>
+                    </div>
+                    <button id="cancelSignin" type="button" class="btn btn-secondary my-2">Cancel</button>
+                    <button id="confirmSignin" type="button" class="btn btn-primary my-2">Confirm</button>
+                </form>
+
+            </div>
+        </div>
+
+
     </div>
 
     <script src="index.js"></script>

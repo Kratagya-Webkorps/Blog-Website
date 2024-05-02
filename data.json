@@ -2,18 +2,22 @@
         {
             "admin": {
                 "email": "kratagya@webkorps.com",
-                "password": "8982"
+                "password": "8982",
+                "name":"kratagya"
             },
             "otherUsers": [{
                 "email": "test@webkorps.com",
-                "password": "4664"
+                "password": "4664",
+                "name":"test"
             },{
                 "email": "test2@webkorps.com",
-                "password": "1234"
+                "password": "1234",
+                "name":"test2"
 
             },{
                 "email": "test3@webkorps.com",
-                "password": "8596"
+                "password": "8596",
+                "name":"test3"
 
             }
         ]
