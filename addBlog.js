@@ -160,7 +160,7 @@ const createCard = (name, title, body, tags, likes, key) => {
     cardBody.appendChild(cardTags);
     cardBody.appendChild(likeBtn);
     cardBody.appendChild(commentBtn);
-    if (window.location.href !== "http://127.0.0.1:5500/user.html") {
+    if (!window.location.href.includes( "user.html")) {
         cardBody.appendChild(deleteBtn);
     }
 
