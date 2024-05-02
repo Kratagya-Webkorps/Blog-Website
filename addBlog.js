@@ -78,13 +78,15 @@ const createCard = (name, title, body, tags, likes, key) => {
         submitCommentBtn.textContent = 'Submit';
         closeCommentBtn.className = 'btn btn-dark submit-comment-btn';
         closeCommentBtn.textContent = 'Close';
+        
         submitCommentBtn.addEventListener('click', function () {
             let commentText = commentInput.value;
             let storedData = localStorage.getItem('blogDetails');
             let parsedData = JSON.parse(storedData);
             let parsedLogin = JSON.parse(localStorage.getItem('loginDetails'));
-            let newComment = {viewerName:parsedLogin[0].name,comments:[commentText]}
-            parsedData.users[key].comment.push(newComment);/////////////////check
+            let newComment = { viewerName: parsedLogin[0].name, comments: [commentText]}
+            parsedData.users[key].comment.push(newComment);
+            console.log(parsedData.users[key].comment)
             let updatedData = JSON.stringify(parsedData);
             localStorage.setItem('blogDetails', updatedData);
             commentInput.value = '';
@@ -92,12 +94,15 @@ const createCard = (name, title, body, tags, likes, key) => {
                 commentContent.removeChild(commentContent.firstChild);
             }
             parsedData.users[key].comment.forEach(comment => {
-                let singleComment = document.createElement("div");
-                singleComment.id = "oldComments";
-                singleComment.innerHTML = `Name:- ${comment.viewerName} and Comment:- ${comment.comments}`;
-                commentContent.appendChild(singleComment);
+                if (Array.isArray(comment) && comment.length > 0) {
+                    console.log("hello", comment[0].viewerName);
+                    let singleComment = document.createElement("div");
+                    singleComment.id = "oldComments";
+                    singleComment.innerHTML = `Name:- ${comment[0].viewerName} and Comment:- ${comment[0].comments}`;
+                    commentContent.appendChild(singleComment);
+                }
             });
-            
+
         });
 
 
@@ -111,22 +116,21 @@ const createCard = (name, title, body, tags, likes, key) => {
 
         let storedData = localStorage.getItem('blogDetails');
         let parsedData = JSON.parse(storedData);
-        let parsedLogin = JSON.parse(localStorage.getItem('loginDetails'));
         let comments = parsedData.users[key].comment;
-        let name = parsedData.users[key].comment;
-
-        let commentsDiv= document.createElement("div")
+        console.log(comments)
+        let commentsDiv = document.createElement("div")
         let commentHeading = document.createElement("h2")
         commentHeading.innerHTML = "Comments"
-
+//check
         let commentContent = document.createElement("div")
         commentContent.id = "commentContent"
 
-        comments.forEach(comment => {//check
-            let singleComment = document.createElement("div");
-            singleComment.id = "oldComments"
-            singleComment.innerHTML = `Name:- ${comment.viewerName} and Comment:- ${comment.comments}`;
-            commentContent.appendChild(singleComment);
+        comments.forEach(comment => {
+                let singleComment = document.createElement("div");
+                singleComment.id = "oldComments"
+                singleComment.innerHTML = `Name:- ${comment.viewerName} and Comment:- ${comment.comments}`;
+                commentContent.appendChild(singleComment);
+            
         });
 
         commentArea.appendChild(clonedCard);
@@ -137,33 +141,33 @@ const createCard = (name, title, body, tags, likes, key) => {
 
         landingPage.append(commentArea);
         cardBlock1.style.display = "none";
-});
-deleteBtn.id = "deleteBlog";
-deleteBtn.className = "btn btn-sm btn-danger mx-1";
-deleteBtn.textContent = "delete";
-deleteBtn.addEventListener("click", function () {
-    let storedData = localStorage.getItem('blogDetails');
-    let parsedData = JSON.parse(storedData);
-    let deleteCard = this.closest("div.card");
-    let cardIndex = Array.from(deleteCard.parentElement.children).indexOf(deleteCard);
-    parsedData.users.splice(cardIndex, 1);
+    });
+    deleteBtn.id = "deleteBlog";
+    deleteBtn.className = "btn btn-sm btn-danger mx-1";
+    deleteBtn.textContent = "delete";
+    deleteBtn.addEventListener("click", function () {
+        let storedData = localStorage.getItem('blogDetails');
+        let parsedData = JSON.parse(storedData);
+        let deleteCard = this.closest("div.card");
+        let cardIndex = Array.from(deleteCard.parentElement.children).indexOf(deleteCard);
+        parsedData.users.splice(cardIndex, 1);
 
-    localStorage.setItem('blogDetails', JSON.stringify(parsedData));
-    deleteCard.style.display = "none";
-});
+        localStorage.setItem('blogDetails', JSON.stringify(parsedData));
+        deleteCard.style.display = "none";
+    });
 
-cardBody.appendChild(cardTitle);
-cardBody.appendChild(cardSubtitle);
-cardBody.appendChild(cardText);
-cardBody.appendChild(cardTags);
-cardBody.appendChild(likeBtn);
-cardBody.appendChild(commentBtn);
-if (window.location.href !== "http://127.0.0.1:5500/user.html") {
-    cardBody.appendChild(deleteBtn);
-}
+    cardBody.appendChild(cardTitle);
+    cardBody.appendChild(cardSubtitle);
+    cardBody.appendChild(cardText);
+    cardBody.appendChild(cardTags);
+    cardBody.appendChild(likeBtn);
+    cardBody.appendChild(commentBtn);
+    if (window.location.href !== "http://127.0.0.1:5500/user.html") {
+        cardBody.appendChild(deleteBtn);
+    }
 
-newCard.appendChild(cardBody);
-cardBlock1.appendChild(newCard);
+    newCard.appendChild(cardBody);
+    cardBlock1.appendChild(newCard);
 };
 
 
@@ -223,10 +227,7 @@ confirmBlogSubmit.addEventListener("click", function () {
     let pTags = document.getElementById("publisherTags").value;
 
     let getData = {
-        "email": pEmail, "name": pName, "title": pTitle, "body": pBody, "tags": pTags, "likes": 0, "comment": {
-            "viewerName": "",
-            "comments": []
-        }
+        "email": pEmail, "name": pName, "title": pTitle, "body": pBody, "tags": pTags, "likes": 0, "comment": []
     };
     let updatedData = localStorage.getItem('blogDetails');
     const parsedData = JSON.parse(updatedData);
