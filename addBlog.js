@@ -80,12 +80,10 @@ const createCard = (name, title, body, tags, likes, key) => {
         closeCommentBtn.textContent = 'Close';
         submitCommentBtn.addEventListener('click', function () {
             let commentText = commentInput.value;
-            console.log(commentText);
             let storedData = localStorage.getItem('blogDetails');
             let parsedData = JSON.parse(storedData);
             let parsedLogin = JSON.parse(localStorage.getItem('loginDetails'));
-            console.log(parsedData.users[key].comment)
-            let newComment = { viewerName: parsedLogin[0].name, comments: [commentText] }
+            let newComment = {viewerName:parsedLogin[0].name,comments:[commentText]}
             parsedData.users[key].comment.push(newComment);/////////////////check
             let updatedData = JSON.stringify(parsedData);
             localStorage.setItem('blogDetails', updatedData);
@@ -99,6 +97,7 @@ const createCard = (name, title, body, tags, likes, key) => {
                 singleComment.innerHTML = `Name:- ${comment.viewerName} and Comment:- ${comment.comments}`;
                 commentContent.appendChild(singleComment);
             });
+            
         });
 
 
@@ -112,9 +111,11 @@ const createCard = (name, title, body, tags, likes, key) => {
 
         let storedData = localStorage.getItem('blogDetails');
         let parsedData = JSON.parse(storedData);
+        let parsedLogin = JSON.parse(localStorage.getItem('loginDetails'));
         let comments = parsedData.users[key].comment;
+        let name = parsedData.users[key].comment;
 
-        let commentsDiv = document.createElement("div")
+        let commentsDiv= document.createElement("div")
         let commentHeading = document.createElement("h2")
         commentHeading.innerHTML = "Comments"
 
@@ -122,7 +123,6 @@ const createCard = (name, title, body, tags, likes, key) => {
         commentContent.id = "commentContent"
 
         comments.forEach(comment => {//check
-            console.log(comment)
             let singleComment = document.createElement("div");
             singleComment.id = "oldComments"
             singleComment.innerHTML = `Name:- ${comment.viewerName} and Comment:- ${comment.comments}`;
@@ -137,35 +137,33 @@ const createCard = (name, title, body, tags, likes, key) => {
 
         landingPage.append(commentArea);
         cardBlock1.style.display = "none";
-    });
-    deleteBtn.id = "deleteBlog";
-    deleteBtn.className = "btn btn-sm btn-danger mx-1";
-    deleteBtn.textContent = "delete";
-    deleteBtn.addEventListener("click", function () {
-        let storedData = localStorage.getItem('blogDetails');
-        let parsedData = JSON.parse(storedData);
-        console.log(parsedData)
-        let deleteCard = this.closest("div.card");
-        let cardIndex = Array.from(deleteCard.parentElement.children).indexOf(deleteCard);
-        parsedData.users.splice(cardIndex, 1);
+});
+deleteBtn.id = "deleteBlog";
+deleteBtn.className = "btn btn-sm btn-danger mx-1";
+deleteBtn.textContent = "delete";
+deleteBtn.addEventListener("click", function () {
+    let storedData = localStorage.getItem('blogDetails');
+    let parsedData = JSON.parse(storedData);
+    let deleteCard = this.closest("div.card");
+    let cardIndex = Array.from(deleteCard.parentElement.children).indexOf(deleteCard);
+    parsedData.users.splice(cardIndex, 1);
 
-        console.log(parsedData)
-        localStorage.setItem('blogDetails', JSON.stringify(parsedData));
-        deleteCard.style.display = "none";
-    });
+    localStorage.setItem('blogDetails', JSON.stringify(parsedData));
+    deleteCard.style.display = "none";
+});
 
-    cardBody.appendChild(cardTitle);
-    cardBody.appendChild(cardSubtitle);
-    cardBody.appendChild(cardText);
-    cardBody.appendChild(cardTags);
-    cardBody.appendChild(likeBtn);
-    cardBody.appendChild(commentBtn);
-    if (window.location.href !== "http://127.0.0.1:5500/user.html") {
-        cardBody.appendChild(deleteBtn);
-    }
+cardBody.appendChild(cardTitle);
+cardBody.appendChild(cardSubtitle);
+cardBody.appendChild(cardText);
+cardBody.appendChild(cardTags);
+cardBody.appendChild(likeBtn);
+cardBody.appendChild(commentBtn);
+if (window.location.href !== "http://127.0.0.1:5500/user.html") {
+    cardBody.appendChild(deleteBtn);
+}
 
-    newCard.appendChild(cardBody);
-    cardBlock1.appendChild(newCard);
+newCard.appendChild(cardBody);
+cardBlock1.appendChild(newCard);
 };
 
 
