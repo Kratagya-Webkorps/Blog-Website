@@ -107,7 +107,6 @@ const createCard = (name, title, body, tags, likes, key) => {
             let parsedLogin = JSON.parse(localStorage.getItem('loginDetails'));
             let newComment = { viewerName: parsedLogin[0].name, comments: [commentText] }
             parsedData.users[key].comment.push(newComment);
-            console.log(parsedData.users[key].comment)
             let updatedData = JSON.stringify(parsedData);
             localStorage.setItem('blogDetails', updatedData);
             commentInput.value = '';
@@ -116,7 +115,6 @@ const createCard = (name, title, body, tags, likes, key) => {
             }
             parsedData.users[key].comment.forEach(comment => {
 
-                console.log("hello", comment.viewerName);
                 let singleComment = document.createElement("div");
                 singleComment.id = "oldComments";
                 singleComment.innerHTML = `Name:- ${comment.viewerName} and Comment:- ${comment.comments}`;
@@ -137,7 +135,6 @@ const createCard = (name, title, body, tags, likes, key) => {
         let storedData = localStorage.getItem('blogDetails');
         let parsedData = JSON.parse(storedData);
         let comments = parsedData.users[key].comment;
-        console.log(comments)
         let commentsDiv = document.createElement("div")
         let commentHeading = document.createElement("h2")
         commentHeading.innerHTML = "Comments"
@@ -185,8 +182,7 @@ const createCard = (name, title, body, tags, likes, key) => {
 
     let storedLoginDetails = localStorage.getItem('loginDetails');
     let parsedLoginDetails = JSON.parse(storedLoginDetails);
-    console.log("LoginDetails" , parsedLoginDetails[0].name)
-    console.log(name)
+   
 
     if (name === parsedLoginDetails[0].name) {
         cardBody.appendChild(deleteBtn);
