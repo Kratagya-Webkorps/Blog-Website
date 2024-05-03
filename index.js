@@ -14,8 +14,6 @@ clearLocalData.addEventListener("click", function () {
     location.reload();
 })
 
-
-
 window.onload = async function () {
     let myData = await fetch('./data.json')
     let response = await myData.json()
@@ -65,16 +63,12 @@ if (submitLoginPage) {
     submitLoginPage.addEventListener("click", async function () {
         let result = await checkIfAdmin()
         if (result === 1) {
-            window.location.href = "admin.html"
-
-        }
-        else if (result === 2) {
             window.location.href = "user.html"
-            console.log("Enter valid details admin")
         }
+        else{
+            console.log("Enter valid details admin")
 
-
-
+        }
     })
 }
 
@@ -91,17 +85,7 @@ const check = (storedInJson) => {
     if (!dataExists) {
         localStorage.setItem('loginDetails', JSON.stringify([]));
     }
-
     let flag = 0
-    if (inputEmail === storedInJson[0].admin.email && inputPass === storedInJson[0].admin.password) {
-        let defaultLoginDetails = [{ "name": storedInJson[0].admin.name, "email": storedInJson[0].admin.email }];
-        let jsonData = JSON.stringify(defaultLoginDetails);
-        localStorage.setItem('loginDetails', jsonData);
-        console.log("Welcome admin")
-        flag = 1
-        console.log("admin")
-        return flag
-    }
     var otherUsers = storedInJson[0]["otherUsers"];
     for (var j = 0; j < otherUsers.length; j++) {
         var user = otherUsers[j];
@@ -111,7 +95,7 @@ const check = (storedInJson) => {
             let jsonData = JSON.stringify(defaultLoginDetails);
             localStorage.setItem('loginDetails', jsonData);
             console.log("first")
-            flag = 2
+            flag = 1
             return flag;
         }
     }
