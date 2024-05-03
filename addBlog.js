@@ -21,7 +21,7 @@ searchInput.addEventListener("keyup", debounce(() => {
 
 signOut.addEventListener("click", () => {
     localStorage.removeItem("loginDetails")
-    window.location.href = "index.html"
+    window.location.href = "readme.html"
 })
 const createCard = (name, title, body, tags, likes, key) => {
     let newCard = document.createElement('div');
