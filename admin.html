@@ -20,21 +20,18 @@
     <nav id="exploreBlock" class="navbar navbar-expand-lg bg-body-tertiary">
         <div  class="container-fluid" >
             <button id="addYourBlog" class="btn btn-primary">Add Your Blog</button>
+            <input type="text" id="searchInput" class="form-control" id="inlineFormInputGroupUsername2" style="width: fit-content;" placeholder="Search by Blogger Name">
             <button id="signOut" class="btn btn-dark">Sign Out</button>
         </div>
     </nav>
     <div id="cardBlock" class="container mt-4 ">
-        <div id="cardBlock1" class="row row-cols-3" ></div>
+        <div id="cardBlock1" class="row row-cols-1 row-cols-sm-2 row-cols-md-3" ></div>
     </div>
     <div id="addNewBlog" class="container card " style="display: none;width: 18rem;">
         <h4>Add Your own Blog</h4>
 
         <form id="pubDetails">
-            <div class="form-group">
-                <label for="publisherEmailId">Email ID</label>
-                <input type="email" class="form-control" id="publisherEmailId" aria-describedby="emailHelp"
-                    placeholder="Enter email">
-            </div>
+           
             <div class="form-group">
                 <label>Publisher Name</label>
                 <input type="text" class="form-control" id="publisherName" placeholder="Enter your name">

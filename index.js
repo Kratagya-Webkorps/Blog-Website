@@ -40,7 +40,6 @@ confirmSignin.addEventListener("click", function () {
         let storedInJson = parsedData;
         console.log(storedInJson[0].otherUsers)
 
-
         let newUser = {
             "email": `${newUserEmailId.value}`,
             "password": `${newUserPassword1.value}`,
