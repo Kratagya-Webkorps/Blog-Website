@@ -33,10 +33,9 @@ confirmSignin.addEventListener("click", function () {
     let newUserName = document.getElementById("newUserName")
     if (newUserEmailId.value !== "" && newUserPassword1.value !== "" && newUserName.value !== "") {
         let storedData = localStorage.getItem('addLoginDetails');
-        console.log(newUserEmailId)
+        
         const parsedData = JSON.parse(storedData);
         let storedInJson = parsedData;
-        console.log(storedInJson[0].otherUsers)
 
         let newUser = {
             "email": `${newUserEmailId.value}`,
@@ -45,7 +44,7 @@ confirmSignin.addEventListener("click", function () {
         };
         storedInJson[0].otherUsers.push(newUser);
         localStorage.setItem('addLoginDetails', JSON.stringify(parsedData));
-        console.log(storedInJson)
+        
         loginPage.style.display = "block"
         signinPageBlock.style.display = "none"
         document.getElementById('newUserEmailId').value = '';
@@ -94,7 +93,7 @@ const check = (storedInJson) => {
             let defaultLoginDetails = [{ "name": user.name, "email": user.email }];
             let jsonData = JSON.stringify(defaultLoginDetails);
             localStorage.setItem('loginDetails', jsonData);
-            console.log("first")
+            
             flag = 1
             return flag;
         }
