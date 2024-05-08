@@ -10,18 +10,25 @@ const debounce = (func, delay) => {
   };
 };
 
-// searchInput.addEventListener(
-//   "keyup",
-//   debounce(() => {
-//     let storedData = localStorage.getItem("blogDetails");
-//     let parsedData = JSON.parse(storedData);
-//     const searchTerm = searchInput.value.toLowerCase();
-//     const matchingUsers = parsedData.users.filter((user) =>
-//       user.name.toLowerCase().includes(searchTerm)
-//     );
-//     console.log(matchingUsers);
-//   }, 300)
-// );
+searchInput.addEventListener(
+  "keyup",
+  debounce(() => {
+    if (searchInput !== "") {
+      while (cardBlock1.firstChild) {
+        cardBlock1.removeChild(cardBlock1.firstChild);
+      }
+      let storedData = localStorage.getItem("blogDetails");
+      let parsedData = JSON.parse(storedData);
+      const searchTerm = searchInput.value.toLowerCase();
+      const matchingUsers = parsedData.users.filter((user) =>
+        user.name.toLowerCase().includes(searchTerm)
+      );
+      matchingUsers.map((e) => {
+        createCard(e.name, e.title, e.body, e.tags, e.likes);
+      });
+    }
+  }, 300)
+);
 
 signOut.addEventListener("click", () => {
   localStorage.removeItem("loginDetails");
@@ -190,25 +197,30 @@ const createCard = (name, title, body, tags, likes, key) => {
   });
 
   deleteBtn.addEventListener("click", function () {
-      let deleteCard = this.closest("div.card");
-
+    let deleteCard = this.closest("div.card");
 
     let storedData = localStorage.getItem("blogDetails");
     let parsedData = JSON.parse(storedData);
     let myModal = document.createElement("div");
+    let myModalMainHeading = document.createElement("h1");
     let myModalInput = document.createElement("input");
     let myModalConfirmBtn = document.createElement("button");
     let myModalCloseBtn = document.createElement("button");
     let myModalHeading = document.createElement("span");
     let cardBlock = document.getElementById("cardBlock");
+    myModal.id = "myModal"
     myModalInput.className = "form-control my-2";
+    myModalInput.id = "myModalInput"
     myModalInput.style.width = "45%";
-    myModalHeading.textContent = `type "${parsedData.users[key].title}" to delete your card`;
+    myModalMainHeading.textContent = `Delete The Card "${parsedData.users[key].title}"`
+    myModalHeading.textContent = `Type "${parsedData.users[key].title}" to delete your card`;
     myModalCloseBtn.textContent = "Close";
     myModalCloseBtn.className = "btn btn-dark mx-2";
     myModalConfirmBtn.textContent = "Confirm";
     myModalConfirmBtn.className = "btn btn-primary";
     myModalConfirmBtn.setAttribute("disabled", "true");
+
+    myModal.appendChild(myModalMainHeading);
     myModal.appendChild(myModalHeading);
     myModal.appendChild(myModalInput);
     myModal.appendChild(myModalConfirmBtn);
@@ -228,8 +240,8 @@ const createCard = (name, title, body, tags, likes, key) => {
     });
 
     myModalConfirmBtn.addEventListener("click", function () {
-      cardBlock.removeChild(myModal)
-    cardBlock1.style.display = "flex";
+      cardBlock.removeChild(myModal);
+      cardBlock1.style.display = "flex";
       let storedData = localStorage.getItem("blogDetails");
       let parsedData = JSON.parse(storedData);
       let cardIndex = Array.from(deleteCard.parentElement.children).indexOf(
@@ -239,6 +251,15 @@ const createCard = (name, title, body, tags, likes, key) => {
       localStorage.setItem("blogDetails", JSON.stringify(parsedData));
       deleteCard.style.display = "none";
     });
+
+    
+    myModalCloseBtn.addEventListener("click",function(){
+      myModalInput.value = ""
+      myModal.style.display = "none"
+    cardBlock1.style.display = "flex";
+
+
+    })
   });
 
   cardBody.appendChild(cardTitle);
